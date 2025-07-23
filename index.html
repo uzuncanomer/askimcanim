@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>♥ Sürpriz Sayfa ♥</title>
+
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/michaelmas');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Michaelmas', sans-serif;
+      background-color: #0d0d0d;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    #soru-kutusu {
+      padding: 50px 20px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      font-family: 'Michaelmas', sans-serif;
+    }
+
+    input {
+      width: 180px;
+      text-align: center;
+    }
+
+    button {
+      background-color: #ff4081;
+      color: white;
+      margin-left: 10px;
+      cursor: pointer;
+      transition: transform 0.3s, background-color 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background-color: #ff6699;
+    }
+
+    #uyari {
+      color: #ff6f61;
+      margin-top: 15px;
+    }
+
+    #icerik {
+      display: none;
+      animation: fadeIn 2s ease forwards;
+      padding: 30px 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    .slayt {
+      display: none;
+      max-width: 90%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #ff4081;
+      animation: fade 2s ease-in-out;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .kalp {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: kalpAnimasyonu 5s linear infinite;
+    }
+
+    .kalp::before, .kalp::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .kalp::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .kalp::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes kalpAnimasyonu {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-800px) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1, h2 {
+        font-size: 20px;
+      }
+
+      input, button {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="soru-kutusu">
+    <h2>Yıldönümümüz ne zaman?</h2>
+    <input type="text" id="cevap" placeholder="gg.aa.yyyy">
+    <button onclick="kontrolEt()">Gönder</button>
+    <div id="uyari"></div>
+  </div>
+
+  <div id="icerik">
+    <audio id="muzik" autoplay loop>
+      <source src="benimle-kayboldun.mp3" type="audio/mpeg">
+      Tarayıcınız ses dosyasını desteklemiyor.
+    </audio>
+
+    <h1>bu sayfa senin için</h1>
+
+    <div id="masaüstü">
+      <img src="foto1.png" class="slayt">
+      <img src="foto2.png" class="slayt">
+      <img src="foto3.png" class="slayt">
+      <img src="foto4.png" class="slayt">
+      <img src="foto5.png" class="slayt">
+      <img src="foto6.png" class="slayt">
+      <img src="foto7.png" class="slayt">
+      <img src="foto8.png" class="slayt">
+      <img src="foto9.png" class="slayt">
+      <img src="foto10.png" class="slayt">
+    </div>
+  </div>
+
+  <script>
+    function kontrolEt() {
+      const cevap = document.getElementById("cevap").value.trim();
+      const dogru = "17.11.2024";
+      const uyari = document.getElementById("uyari");
+
+      if (cevap === dogru) {
+        document.getElementById("soru-kutusu").style.display = "none";
+        document.getElementById("icerik").style.display = "block";
+        document.getElementById("muzik").play();
+        slaytBaslat();
+        kalpYagmuru();
+      } else {
+        uyari.textContent = "Yanlış cevap 💔";
+      }
+    }
+
+    function slaytBaslat() {
+      const slaytlar = document.querySelectorAll(".slayt");
+      let i = 0;
+      slaytlar[i].style.display = "block";
+
+      setInterval(() => {
+        slaytlar[i].style.display = "none";
+        i = (i + 1) % slaytlar.length;
+        slaytlar[i].style.display = "block";
+      }, 3000);
+    }
+
+    function kalpYagmuru() {
+      setInterval(() => {
+        const kalp = document.createElement("div");
+        kalp.classList.add("kalp");
+        kalp.style.left = Math.random() * window.innerWidth + "px";
+        kalp.style.top = window.innerHeight + "px";
+        document.body.appendChild(kalp);
+
+        setTimeout(() => kalp.remove(), 5000);
+      }, 200);
+    }
+  </script>
+
+</body>
+</html>
+
